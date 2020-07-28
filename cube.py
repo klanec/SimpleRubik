@@ -103,7 +103,8 @@ class Cube(object):
     
     
     def scramble(self, scramble):
-        # Take each move and apply it, if it contains a'2', do it again
+        # Takes a legal scramble, splits to moves and applies each.
+        # if it contains a '2', do it twice
         for move in scramble.split(' '):
             m = move.replace("2", "")
             self.apply(m, "'" in move)
@@ -112,7 +113,8 @@ class Cube(object):
            
         
     def unscramble(self, scramble):
-        # Take the reversed move list, if no '2' in move, do the reverse, other
+        # Takes a legal scramble, reverse it, splits to moves and applies the opposite of each.
+        # if move contains a '2', do it twice
         for move in scramble.split(' ')[::-1]:
             m = move.replace("2", "")
             self.apply(m, not "'" in move) 
@@ -121,6 +123,7 @@ class Cube(object):
     
 
     def flat_str(self):
+        # Get the flat rubiks string in the same format as the input required to build the cube object
         out = "".join(self.U.flatten())
         out += "".join(np.array(list(zip(self.L,self.F,self.R,self.B))).flatten()) 
         out += "".join(self.D.flatten())
@@ -128,6 +131,7 @@ class Cube(object):
 
 
     def __str__(self):
+        # Print the rubiks cube as a net
         indent = ' ' * self.dimensions + ' ' * (self.dimensions-1) + '\t'
         
         out = indent
@@ -142,20 +146,24 @@ class Cube(object):
 def main():
     c = Cube("OOOOOO*OOYY**WWGGGBBBYYYWWWGGGBBBYYYWWWGGGBBBRRRRRRRRR")
 
-    print("Observe the corner moving acros the cube")
+    print("Observe the corner moving across the cube")
     print(c)
 
     for i in range(4):
         print("==========================================")
+        input("rotate on F  {}/4\n[PRESS ENTER]".format(i+1))
         c.apply("F")
         print(c)
-        input("rotate on F  {}/4\n[PRESS ENTER]".format(i+1))
+        print("Flat string:", c.flat_str())
+        
 
     for i in range(4):
         print("==========================================")
+        input("rotate on y {}/4\n[PRESS ENTER]".format(i+1))
         c.apply("y")
         print(c)
-        input("rotate on y {}/4\n[PRESS ENTER]".format(i+1))
+        print("Flat string:", c.flat_str())
+        
 
 
 if __name__=="__main__":
