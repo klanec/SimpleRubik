@@ -2,19 +2,18 @@ import numpy as np
 
 
 class Cube(object): 
-    faces = ['U', 'L', 'F', 'R', 'B', 'D']
-    moves = faces + ['X', 'Y']
+
     dimensions = 3
     
 
     def __init__(self, block):
         assert len(block) == 54
-        self.U = np.array([list(block[i:i+3]) for i in range(0,9,3)])       #, dtype=np.dtype('b'))
-        self.L = np.array([list(block[i+9:i+12]) for i in range(0,33,12)])  #, dtype=np.dtype('b'))
-        self.F = np.array([list(block[i+12:i+15]) for i in range(0,33,12)]) #, dtype=np.dtype('b'))
-        self.R = np.array([list(block[i+15:i+18]) for i in range(0,33,12)]) #, dtype=np.dtype('b'))
-        self.B = np.array([list(block[i+18:i+21]) for i in range(0,33,12)]) #, dtype=np.dtype('b'))
-        self.D = np.array([list(block[i:i+3]) for i in range(45,54,3)])     #, dtype=np.dtype('b'))
+        self.U = np.array([list(block[i:i+3]) for i in range(0,9,3)])
+        self.L = np.array([list(block[i+9:i+12]) for i in range(0,33,12)])
+        self.F = np.array([list(block[i+12:i+15]) for i in range(0,33,12)])
+        self.R = np.array([list(block[i+15:i+18]) for i in range(0,33,12)])
+        self.B = np.array([list(block[i+18:i+21]) for i in range(0,33,12)])
+        self.D = np.array([list(block[i:i+3]) for i in range(45,54,3)])
 
 
     def rot_x(self, prime=False):
